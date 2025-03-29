@@ -14,7 +14,6 @@ const signupSchema = Joi.object({
 });
 
 const addTaskSchema = Joi.object({
-  userId: Joi.string().trim()?.required(),
   title: Joi.string().trim()?.required(),
   description: Joi.string().trim()?.required(),
   dueDate: Joi.date().required(),

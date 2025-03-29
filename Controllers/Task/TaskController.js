@@ -5,8 +5,14 @@ const { addTaskSchema } = require("../../Helpers/validator.js");
 exports.addTask = async (req, res, next) => {
     try {
         const validateResult = await addTaskSchema.validateAsync(req.body);
+
+        const token = (req?.headers?.authorization || req?.headers["authorization"])?.split(" ")[1];
+
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN_SECRET_KEY);
+        const userId = decodedToken?.user?._id;
+
         const newTask = new Task({
-            userId: validateResult?.userId,
+            userId: userId,
             title: validateResult?.title,
             description: validateResult?.description,
             dueDate: validateResult?.dueDate
