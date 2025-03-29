@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const DatabaseConnection = require('./Database/database.js');
 const authRoutes = require('./Routes/Auth/AuthRoutes.js');
+const taskRoutes = require('./Routes/Task/TaskRoutes.js');
 
 const App = express();
 
@@ -22,6 +23,9 @@ App.use(bodyParser.urlencoded({ extended: true }));
 /* --------- Routes --------- */
 // Auth
 App.use('/api/v1/auth', authRoutes);
+
+// Task
+App.use('/api/v1/task', taskRoutes);
 
 App.use('/', (req, res) => {
     res.status(404).json({
