@@ -2,15 +2,14 @@ pipeline {
     agent any
 
     environment {
-        NODE_ENV = 'development'
+        NODE_VERSION = '18.17.0'
     }
 
     stages {
-        stage('Setup Node.js') {
+        stage('Install Node.js (Chocolatey)') {
             steps {
-                sh '''
-                    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-                    sudo apt-get install -y nodejs
+                bat '''
+                    choco install nodejs-lts -y
                     node -v
                     npm -v
                 '''
@@ -25,47 +24,26 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Lint') {
-            steps {
-                sh 'npm run lint || true' // avoids pipeline failure if lint fails
+                bat 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('Deploy') {
-            when {
-                branch 'main'
-            }
-            steps {
-                echo 'Deploying...'
+                bat 'npm run build'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline completed.'
-        }
-        success {
-            echo '✅ Success!'
-        }
-        failure {
-            echo '❌ Failed!'
+            echo 'Build complete.'
         }
     }
 }
