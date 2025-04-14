@@ -21,6 +21,11 @@ const TaskSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
+    isCompleted: {
+        type: Boolean,
+        default: false,
+        required: true,
+    },
 },
     { timestamps: true }
 );

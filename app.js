@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const DatabaseConnection = require('./Database/database.js');
 const authRoutes = require('./Routes/Auth/AuthRoutes.js');
 const taskRoutes = require('./Routes/Task/TaskRoutes.js');
+const { startReminderService } = require('./Services/reminderService.js');
 
 const App = express();
 
@@ -14,6 +15,9 @@ DatabaseConnection()
         console.error('Database connection failed. Exiting application.');
         process.exit(1); // Exit the process if database connection fails
     });
+
+// Due date reminder
+startReminderService();
 
 App.use(cors());
 
