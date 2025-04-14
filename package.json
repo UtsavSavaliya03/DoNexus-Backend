@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "lint": "eslint .",
+    "test:watch": "jest --watchAll",
+     "build": "echo 'No build step for backend'"
   },
   "keywords": [],
   "author": "",
