@@ -1,4 +1,4 @@
-const { signup, login } = require('../../Controllers/Auth/authController.js');
+const { signup, login } = require('../../Controllers/Auth/AuthController.js');
 const User = require('../../Models/User/User.js');
 const bcrypt = require('bcrypt');
 const { signupSchema, loginSchema } = require('../../Helpers/validator.js');
